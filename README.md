@@ -11,10 +11,8 @@ and a drift monitor — plus a live app you can score an applicant in.
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Licence MIT](https://img.shields.io/badge/licence-MIT-green)
 
-<!-- DEPLOY ME: push this repo, then go to share.streamlit.io, connect the repo, and set the
-     main file to app/streamlit_app.py. Name the app "credit-risk-scorecard" and the URL below
-     resolves. Until then, delete this line so the README has no dead link. -->
-**[Live demo →](https://credit-risk-scorecard.streamlit.app)** · [Modelling decisions](docs/modelling_decisions.md) · [Data quality](docs/data_quality.md) · [Open Banking track](docs/open_banking.md)
+
+**[Live demo →](https://credit-risk-scorecard-js27.streamlit.app)** · [Modelling decisions](docs/modelling_decisions.md) · [Data quality](docs/data_quality.md) · [Open Banking track](docs/open_banking.md)
 
 ---
 

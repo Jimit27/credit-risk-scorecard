@@ -1,0 +1,170 @@
+{
+  "holdout": {
+    "score_psi": 0.0004985392461502927,
+    "score_verdict": "stable",
+    "reference_mean_score": 583.0705055237297,
+    "current_mean_score": 582.7150368298954,
+    "feature_psi": {
+      "utilisation_x_delinquency": {
+        "psi": 0.0009034407808112198,
+        "verdict": "stable"
+      },
+      "worst_delinquency_severity": {
+        "psi": 0.0002770111317649471,
+        "verdict": "stable"
+      },
+      "times_90_dpd": {
+        "psi": 0.0004491260401635338,
+        "verdict": "stable"
+      },
+      "times_30_59_dpd": {
+        "psi": 0.0002831274970694809,
+        "verdict": "stable"
+      },
+      "age": {
+        "psi": 0.00031774454758028175,
+        "verdict": "stable"
+      },
+      "disposable_income": {
+        "psi": 0.00020738902298389578,
+        "verdict": "stable"
+      },
+      "income_per_dependent": {
+        "psi": 0.0003461153058814379,
+        "verdict": "stable"
+      },
+      "log_monthly_income": {
+        "psi": 0.000540393660873244,
+        "verdict": "stable"
+      },
+      "open_credit_lines": {
+        "psi": 0.0002438406362591577,
+        "verdict": "stable"
+      },
+      "debt_ratio": {
+        "psi": 0.0005356701615999506,
+        "verdict": "stable"
+      },
+      "real_estate_share_of_lines": {
+        "psi": 0.00021072646762294015,
+        "verdict": "stable"
+      },
+      "dependents": {
+        "psi": 3.203950253640548e-05,
+        "verdict": "stable"
+      }
+    },
+    "largest_feature_shifts": [
+      {
+        "feature": "utilisation_x_delinquency",
+        "psi": 0.0009034407808112198,
+        "verdict": "stable"
+      },
+      {
+        "feature": "log_monthly_income",
+        "psi": 0.000540393660873244,
+        "verdict": "stable"
+      },
+      {
+        "feature": "debt_ratio",
+        "psi": 0.0005356701615999506,
+        "verdict": "stable"
+      },
+      {
+        "feature": "times_90_dpd",
+        "psi": 0.0004491260401635338,
+        "verdict": "stable"
+      },
+      {
+        "feature": "income_per_dependent",
+        "psi": 0.0003461153058814379,
+        "verdict": "stable"
+      }
+    ],
+    "action": "No action. Score distribution is consistent with development."
+  },
+  "shifted_population": {
+    "score_psi": 0.1886707590356788,
+    "score_verdict": "investigate",
+    "reference_mean_score": 583.0705055237297,
+    "current_mean_score": 572.6778017764974,
+    "feature_psi": {
+      "utilisation_x_delinquency": {
+        "psi": 0.05435452146911911,
+        "verdict": "stable"
+      },
+      "worst_delinquency_severity": {
+        "psi": 0.0002770111317649471,
+        "verdict": "stable"
+      },
+      "times_90_dpd": {
+        "psi": 0.0004491260401635338,
+        "verdict": "stable"
+      },
+      "times_30_59_dpd": {
+        "psi": 0.0002831274970694809,
+        "verdict": "stable"
+      },
+      "age": {
+        "psi": 0.29293476523728584,
+        "verdict": "revalidate"
+      },
+      "disposable_income": {
+        "psi": 0.3047914501586983,
+        "verdict": "revalidate"
+      },
+      "income_per_dependent": {
+        "psi": 0.260379461950822,
+        "verdict": "revalidate"
+      },
+      "log_monthly_income": {
+        "psi": 0.773697077676943,
+        "verdict": "revalidate"
+      },
+      "open_credit_lines": {
+        "psi": 0.0002438406362591577,
+        "verdict": "stable"
+      },
+      "debt_ratio": {
+        "psi": 0.5397213438828703,
+        "verdict": "revalidate"
+      },
+      "real_estate_share_of_lines": {
+        "psi": 0.00021072646762294015,
+        "verdict": "stable"
+      },
+      "dependents": {
+        "psi": 3.203950253640548e-05,
+        "verdict": "stable"
+      }
+    },
+    "largest_feature_shifts": [
+      {
+        "feature": "log_monthly_income",
+        "psi": 0.773697077676943,
+        "verdict": "revalidate"
+      },
+      {
+        "feature": "debt_ratio",
+        "psi": 0.5397213438828703,
+        "verdict": "revalidate"
+      },
+      {
+        "feature": "disposable_income",
+        "psi": 0.3047914501586983,
+        "verdict": "revalidate"
+      },
+      {
+        "feature": "age",
+        "psi": 0.29293476523728584,
+        "verdict": "revalidate"
+      },
+      {
+        "feature": "income_per_dependent",
+        "psi": 0.260379461950822,
+        "verdict": "revalidate"
+      }
+    ],
+    "action": "Investigate. Check the largest feature shifts and recent acquisition channels before the next review."
+  }
+}

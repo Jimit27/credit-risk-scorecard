@@ -1,0 +1,25 @@
+feature,information_value,strength,selected,exclusion_reason
+utilisation_x_delinquency,1.5110562189064443,suspiciously strong - check for leakage,True,
+worst_delinquency_severity,1.2954890937519397,suspiciously strong - check for leakage,True,
+total_delinquencies,1.2879144046938176,suspiciously strong - check for leakage,False,correlated 0.93 with worst_delinquency_severity
+delinquencies_per_credit_line,1.2355379563130588,suspiciously strong - check for leakage,False,correlated 0.94 with worst_delinquency_severity
+revolving_utilisation,1.0865285565094736,suspiciously strong - check for leakage,False,correlated 0.89 with utilisation_x_delinquency
+times_90_dpd,0.8325536611956899,suspiciously strong - check for leakage,True,
+times_30_59_dpd,0.7451952886940739,suspiciously strong - check for leakage,True,
+age,0.25714850087176927,medium,True,
+disposable_income,0.1100267049700353,medium,True,
+income_per_dependent,0.10803411062751007,medium,True,
+log_monthly_income,0.07768738579302065,weak,True,
+monthly_income,0.07744696908096639,weak,False,correlated 1.00 with log_monthly_income
+open_credit_lines,0.06179031379787122,weak,True,
+times_60_89_dpd,0.04693201660596441,weak,False,single populated bin - no separation among observed values
+unsecured_lines,0.042615288758368716,weak,False,correlated 0.85 with open_credit_lines
+debt_ratio,0.03790693352870374,weak,True,
+real_estate_share_of_lines,0.037278753524052986,weak,True,
+dependents,0.03294320658398189,weak,True,
+flag_monthly_income_missing,0.007995767807453381,unpredictive,False,IV below floor
+real_estate_lines,0.006008917571767201,unpredictive,False,IV below floor
+monthly_debt_service,0.005034019811515978,unpredictive,False,IV below floor
+monthly_debt_amount,0.004050096047530246,unpredictive,False,IV below floor
+flag_debt_ratio_is_amount,0.004050096047530246,unpredictive,False,IV below floor
+flag_delinquency_sentinel,5.968823177508217e-09,unpredictive,False,IV below floor

@@ -1,0 +1,184 @@
+{
+  "dataset": {
+    "rows": 149391,
+    "features_available": 24,
+    "features_selected": 12,
+    "default_rate": 0.06699868131279663,
+    "split_sizes": {
+      "train": 89620,
+      "valid": 29879,
+      "test": 29892
+    }
+  },
+  "models": {
+    "logistic_woe": {
+      "train": {
+        "auc": 0.853510450728022,
+        "gini": 0.707020901456044,
+        "ks": 0.5573083959119791,
+        "brier": 0.051031944168816755,
+        "log_loss": 0.1846060457930964,
+        "observed_default_rate": 0.06701629100647177,
+        "mean_predicted_rate": 0.06603618736888901,
+        "n": 89620
+      },
+      "valid": {
+        "auc": 0.8492202804030377,
+        "gini": 0.6984405608060753,
+        "ks": 0.5412911772582578,
+        "brier": 0.04954344174258609,
+        "log_loss": 0.18120128504004548,
+        "observed_default_rate": 0.06543056996552762,
+        "mean_predicted_rate": 0.06543057371397971,
+        "n": 29879
+      },
+      "test": {
+        "auc": 0.8560779353973252,
+        "gini": 0.7121558707946505,
+        "ks": 0.5676219377379328,
+        "brier": 0.0515757417899438,
+        "log_loss": 0.18599047848193323,
+        "observed_default_rate": 0.06851331459922387,
+        "mean_predicted_rate": 0.06718828437886627,
+        "n": 29892
+      }
+    },
+    "gbm": {
+      "train": {
+        "auc": 0.8766340300533141,
+        "gini": 0.7532680601066282,
+        "ks": 0.5937557989008703,
+        "brier": 0.04778776317834854,
+        "log_loss": 0.1725562004774264,
+        "observed_default_rate": 0.06701629100647177,
+        "mean_predicted_rate": 0.06656141579151154,
+        "n": 89620
+      },
+      "valid": {
+        "auc": 0.8627561895257534,
+        "gini": 0.7255123790515068,
+        "ks": 0.5624521582329238,
+        "brier": 0.04805900901556015,
+        "log_loss": 0.17522186775178378,
+        "observed_default_rate": 0.06543056996552762,
+        "mean_predicted_rate": 0.06543072313070297,
+        "n": 29879
+      },
+      "test": {
+        "auc": 0.8671006513830404,
+        "gini": 0.7342013027660808,
+        "ks": 0.5787615683585332,
+        "brier": 0.050077173858881,
+        "log_loss": 0.18032023889656215,
+        "observed_default_rate": 0.06851331459922387,
+        "mean_predicted_rate": 0.06765173375606537,
+        "n": 29892
+      }
+    }
+  },
+  "champion": "logistic_woe",
+  "business": {
+    "cutoff_chosen_on": "validation",
+    "pd_cutoff": 0.1134020618556701,
+    "score_cutoff": 541.9675438757406,
+    "approval_rate_on_validation": 0.8700090364470029,
+    "approval_rate_on_test": 0.8709353673223605,
+    "bad_rate_at_cutoff_on_test": 0.03161250672197895,
+    "expected_profit_at_cutoff_on_test": 9040550.0,
+    "expected_profit_approve_all_on_test": 6795400.0,
+    "profit_uplift_vs_approve_all": 2245150.0
+  },
+  "bands": [
+    {
+      "band": "E",
+      "label": "High risk",
+      "min_score": 462,
+      "max_score": 545,
+      "applicants": 4040,
+      "population_share": 0.13515321825237522,
+      "observed_default_rate": 0.3089108910891089
+    },
+    {
+      "band": "D",
+      "label": "Elevated risk",
+      "min_score": 545,
+      "max_score": 575,
+      "applicants": 4652,
+      "population_share": 0.1556269235915964,
+      "observed_default_rate": 0.09221840068787618
+    },
+    {
+      "band": "C",
+      "label": "Moderate risk",
+      "min_score": 575,
+      "max_score": 600,
+      "applicants": 10440,
+      "population_share": 0.34925732637494983,
+      "observed_default_rate": 0.026724137931034484
+    },
+    {
+      "band": "B",
+      "label": "Low risk",
+      "min_score": 600,
+      "max_score": 615,
+      "applicants": 7233,
+      "population_share": 0.24197109594540345,
+      "observed_default_rate": 0.00953961012028204
+    },
+    {
+      "band": "A",
+      "label": "Very low risk",
+      "min_score": 615,
+      "max_score": 631,
+      "applicants": 3527,
+      "population_share": 0.11799143583567509,
+      "observed_default_rate": 0.00652112276722427
+    }
+  ],
+  "bands_monotonic": true,
+  "stability": {
+    "psi_train_vs_test": 0.000481431332443757,
+    "verdict": "stable"
+  },
+  "segments": {
+    "18-29": {
+      "n": 1761,
+      "gini": 0.6218428630193338,
+      "observed_default_rate": 0.1254968767745599,
+      "mean_predicted_rate": 0.12324617947260948
+    },
+    "30-39": {
+      "n": 4580,
+      "gini": 0.6622612495290514,
+      "observed_default_rate": 0.10393013100436681,
+      "mean_predicted_rate": 0.10399895354764738
+    },
+    "40-49": {
+      "n": 6827,
+      "gini": 0.6624102717411615,
+      "observed_default_rate": 0.08261315365460671,
+      "mean_predicted_rate": 0.08327168598373286
+    },
+    "50-59": {
+      "n": 7032,
+      "gini": 0.708860601912914,
+      "observed_default_rate": 0.06797497155858931,
+      "mean_predicted_rate": 0.06583303424245555
+    },
+    "60-69": {
+      "n": 5899,
+      "gini": 0.7176365197326975,
+      "observed_default_rate": 0.03763349720291575,
+      "mean_predicted_rate": 0.03630509772842619
+    },
+    "70+": {
+      "n": 3790,
+      "gini": 0.630532559807053,
+      "observed_default_rate": 0.02295514511873351,
+      "mean_predicted_rate": 0.018305484393540464
+    }
+  },
+  "artifacts": {
+    "champion_model": "models/scorecard.joblib"
+  }
+}

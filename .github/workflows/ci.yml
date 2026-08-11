@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # Fast gate: lint plus every test that does not need the built data lake.
+  # These run on a clean clone with no artefacts, which is the state a reviewer
+  # will be in when they first check out the repo.
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: ruff check src tests app notebooks
+
+      - name: Test
+        run: pytest tests -v --cov=src/creditrisk --cov-report=term-missing
+
+  # Full gate: rebuild the medallion layers from the raw CSV with PySpark, train
+  # the model, and re-run the suite with the artefacts present. This is the run
+  # that exercises the Spark transformations and the training/serving parity
+  # test, which can only compare against a Spark-built gold table.
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install with Spark
+        run: |
+          python -m pip install --upgrade pip
+          # PySpark ships an sdist whose build breaks on setuptools >= 81.
+          pip install "setuptools==75.8.0" wheel
+          pip install -r requirements-spark.txt -r requirements-dev.txt
+
+      - name: Fetch the raw extract
+        run: python scripts/download_data.py
+
+      - name: Run the full pipeline
+        run: python -m creditrisk.pipeline all
+
+      - name: Test against the built artefacts
+        run: pytest tests -v
+
+      - name: Check the headline metrics have not regressed
+        run: |
+          python - <<'PY'
+          import json, sys
+          report = json.load(open("reports/metrics.json"))
+          test = report["models"][report["champion"]]["test"]
+          gates = {
+              "gini >= 0.68": test["gini"] >= 0.68,
+              "ks >= 0.52": test["ks"] >= 0.52,
+              "brier <= 0.06": test["brier"] <= 0.06,
+              "grades monotonic": report["bands_monotonic"],
+              "population stable": report["stability"]["verdict"] == "stable",
+          }
+          for name, passed in gates.items():
+              print(f"{'PASS' if passed else 'FAIL'}  {name}")
+          sys.exit(0 if all(gates.values()) else 1)
+          PY
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: reports/

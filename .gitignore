@@ -1,0 +1,37 @@
+# Built medallion layers - regenerate with `make pipeline`
+data/bronze/*
+data/silver/*
+data/gold/*
+!data/**/.gitkeep
+# The Open Banking outputs are small and the app reads them, so they ship.
+!data/gold/openbanking_features.parquet
+!data/gold/openbanking_ledger_sample.csv
+
+# Raw extract - fetch it with `make data` rather than committing 7 MB of
+# competition data to the repo.
+data/raw/*.csv
+
+# The trained bundles DO ship (about 400 KB): the Streamlit demo and the tests
+# load them, and a portfolio repo whose demo cannot start is not a demo.
+!models/*.joblib
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# Spark
+spark-warehouse/
+metastore_db/
+derby.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,33 @@
+{
+  "simulated": true,
+  "applicants": 3000,
+  "transactions": 630604,
+  "months_of_history": 6,
+  "held_out_merchants": 16,
+  "n_categories": 12,
+  "uniform_baseline_accuracy": 0.08333333333333333,
+  "majority_class_baseline_accuracy": 0.2127510437936184,
+  "unseen_merchant_accuracy_text_only": 0.03456709231097431,
+  "unseen_merchant_accuracy_text_plus_behaviour": 0.3962987230670771,
+  "full_ledger_agreement_in_sample": 0.8742649903901656,
+  "features_derived": [
+    "ob_income_monthly_median",
+    "ob_income_payment_count",
+    "ob_income_volatility",
+    "ob_income_is_regular",
+    "ob_essential_spend_monthly",
+    "ob_essential_spend_ratio",
+    "ob_discretionary_spend_monthly",
+    "ob_discretionary_spend_ratio",
+    "ob_debt_repayment_monthly",
+    "ob_cash_monthly",
+    "ob_fees_monthly",
+    "ob_fee_events",
+    "ob_min_balance",
+    "ob_mean_balance",
+    "ob_days_in_overdraft",
+    "ob_surplus_after_essentials",
+    "ob_essential_cover_ratio",
+    "ob_spend_volatility"
+  ]
+}

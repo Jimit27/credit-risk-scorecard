@@ -1,0 +1,115 @@
+# Central configuration for the credit-risk-scorecard pipeline.
+# Every module reads from here; nothing is hard-coded in the transformation code.
+
+project:
+  name: credit-risk-scorecard
+  random_seed: 42
+
+paths:
+  raw: data/raw/cs-training.csv
+  bronze: data/bronze
+  silver: data/silver
+  gold: data/gold
+  models: models
+  reports: reports
+  figures: reports/figures
+
+data:
+  target: SeriousDlqin2yrs
+  id_column: applicant_id
+  # Train / validation / test proportions. Validation tunes the model and the
+  # cut-off; test is touched exactly once, for the headline numbers.
+  split:
+    train: 0.60
+    valid: 0.20
+    test: 0.20
+
+# Documented data-quality rules. These encode the known defects in the
+# Give Me Some Credit extract - see docs/data_quality.md for the evidence.
+cleaning:
+  # 96 and 98 are administrative sentinel codes in the delinquency counters,
+  # not real counts of missed payments.
+  delinquency_sentinels: [96, 98]
+  delinquency_columns:
+    - NumberOfTime30-59DaysPastDueNotWorse
+    - NumberOfTime60-89DaysPastDueNotWorse
+    - NumberOfTimes90DaysLate
+  # A revolving utilisation of 50,708 is a data error, not a borrower using
+  # five million percent of their limit. Winsorise rather than drop: the rows
+  # still carry signal in every other column.
+  winsorise:
+    RevolvingUtilizationOfUnsecuredLines: [0.0, 2.0]
+    DebtRatio: [0.0, 5.0]
+    MonthlyIncome: [0.0, 50000.0]
+    NumberOfDependents: [0.0, 10.0]
+  age:
+    min_valid: 18
+    max_valid: 100
+  drop_exact_duplicates: true
+
+# Weight-of-Evidence binning: the standard interpretable transform in credit
+# scoring. Bins are monotonic-optimised then scored by Information Value.
+woe:
+  max_bins: 8
+  min_bin_fraction: 0.05
+  # Features below this IV carry too little signal to justify their model risk.
+  min_information_value: 0.02
+  laplace_smoothing: 0.5
+  # Of any pair of features correlated above this on the WoE scale, only the
+  # higher-IV one survives.
+  max_pairwise_correlation: 0.85
+
+model:
+  # Champion is the interpretable scorecard; the GBM is the challenger that
+  # tells us how much predictive power interpretability is costing us.
+  champion: logistic_woe
+  logistic_woe:
+    C: 1.0
+    max_iter: 2000
+  gbm:
+    n_estimators: 400
+    max_depth: 4
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.8
+    min_child_weight: 20
+    reg_lambda: 2.0
+  calibration:
+    method: isotonic
+
+# Points-to-double-the-odds scaling: the standard way a PD is turned into a
+# score a credit officer can read.
+scorecard:
+  base_score: 600
+  base_odds: 50.0
+  pdo: 20
+  # Grade boundaries are set from the development-sample score distribution so
+  # each grade holds a usable share of the book, then checked for a monotonic
+  # bad rate. See reports/band_table.csv for the realised rates.
+  bands:
+    - {name: "A", min_score: 615, label: "Very low risk"}
+    - {name: "B", min_score: 600, label: "Low risk"}
+    - {name: "C", min_score: 575, label: "Moderate risk"}
+    - {name: "D", min_score: 545, label: "Elevated risk"}
+    - {name: "E", min_score: 0,   label: "High risk"}
+
+# Business economics used to pick a cut-off. These are illustrative figures for
+# an unsecured consumer loan book, stated openly rather than buried in code.
+economics:
+  revenue_per_good: 450.0    # net interest + fees earned on a loan that performs
+  loss_per_bad: 2800.0       # loss given default on a loan that goes 90+ DPD
+
+monitoring:
+  # Population Stability Index thresholds are the industry convention.
+  psi_bins: 10
+  psi_thresholds:
+    stable: 0.10
+    investigate: 0.25
+
+openbanking:
+  # The transaction ledger is SIMULATED. See docs/open_banking.md - no
+  # predictive claim is made from it. It exists to demonstrate the feature
+  # engineering an Open Banking affordability model actually requires.
+  n_applicants: 3000
+  months_of_history: 6
+  seed: 7

@@ -1,0 +1,22 @@
+{
+  "rows_in": 150000,
+  "rules": {
+    "unparseable_values_nulled": {
+      "monthly_income": 29731,
+      "dependents": 3924
+    },
+    "exact_duplicates_removed": 609,
+    "delinquency_sentinel_rows": 225,
+    "invalid_age_rows": 14,
+    "debt_ratio_unit_ambiguous_rows": 22691,
+    "monthly_income_missing_rows": 29221,
+    "dependents_missing_rows": 3828,
+    "values_winsorised": {
+      "revolving_utilisation": 371,
+      "debt_ratio": 6950,
+      "monthly_income": 301,
+      "dependents": 2
+    }
+  },
+  "rows_out": 149391
+}

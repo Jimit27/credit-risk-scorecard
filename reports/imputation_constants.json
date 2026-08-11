@@ -1,0 +1,16 @@
+{
+  "monthly_income_by_age_band": {
+    "18-29": 2586.0,
+    "30-39": 4666.0,
+    "40-49": 6000.0,
+    "50-59": 6333.0,
+    "60-69": 5917.0,
+    "70+": 4550.0,
+    "unknown": 2883.0
+  },
+  "monthly_income_global_median": 5400.0,
+  "age_median": 52.0,
+  "debt_ratio_median": 0.306885986,
+  "dependents_fill": 0.0,
+  "monthly_debt_amount_fill": 0.0
+}

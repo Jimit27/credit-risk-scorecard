@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "creditrisk"
+version = "1.0.0"
+description = "An end-to-end, regulator-shaped probability-of-default scorecard"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q --strict-markers"
+markers = [
+    "spark: requires a working PySpark install and a JVM",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests", "app"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C4", "SIM"]
+ignore = [
+    "E501",  # line length is enforced by the formatter, not the linter
+    "B008",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/databricks/*.py" = ["E402", "F821"]  # notebook cells: imports mid-file, spark/display injected
+"app/streamlit_app.py" = ["E402"]  # sys.path must be set before the package imports

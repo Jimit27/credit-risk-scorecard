@@ -13,10 +13,14 @@ help:
 
 install:
 	pip install -r requirements-dev.txt
+	# Editable install: without it `python -m creditrisk.pipeline` cannot find
+	# the package, because the source lives under src/ rather than the repo root.
+	pip install -e . --no-deps
 
 install-spark:
 	pip install "setuptools==75.8.0" wheel
 	pip install -r requirements-spark.txt -r requirements-dev.txt
+	pip install -e . --no-deps
 
 data:
 	python scripts/download_data.py

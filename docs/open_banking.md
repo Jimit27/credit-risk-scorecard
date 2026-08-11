@@ -41,26 +41,27 @@ would sit on both sides of it.
 |---|---|
 | Uniform guess across 12 categories | 8.3% |
 | **Always guess the most common category** | **21.3%** |
-| Character n-grams on the description | **3.5%** |
-| Description **plus transaction behaviour** | **39.6%** |
+| Character n-grams on the description | **13.2%** |
+| Description **plus transaction behaviour** | **36.7%** |
 
 The majority-class row is the baseline that matters. The held-out transactions are
 heavily skewed - groceries 21%, shopping 20%, eating out 20% - so measuring against
 a uniform 1-in-12 guess would flatter every model in the table.
 
 The finding is the interesting part, and the first half of it is negative. Text
-alone lands *below* random guessing on a merchant it has not memorised - nothing
-in `OCTOPUS ENERGY` resembles `EDF ENERGY` at the character level, and the n-gram
-model does worse than chance because it confidently maps unfamiliar strings onto
-whichever category shares incidental character patterns with them. Memorisation
-that looks like learning, until the merchant changes.
+alone lands *below* the majority-class baseline on a merchant it has not
+memorised - nothing in `OCTOPUS ENERGY` resembles `EDF ENERGY` at the character
+level, and the n-gram model does worse than simply always guessing "groceries"
+because it confidently maps unfamiliar strings onto whichever category shares
+incidental character patterns with them. Memorisation that looks like learning,
+until the merchant changes.
 
 Adding how the transaction *behaves* - amount, sign, recurrence, amount stability,
-share of the month's outflow - takes it to 39.6%, or 1.9x the majority-class
+share of the month's outflow - takes it to 36.7%, or 1.7x the majority-class
 baseline, because an unseen merchant is still recognisable as "monthly, fixed
 amount, large" versus "frequent, variable, small".
 
-40% is still poor, and that is the honest conclusion: **unseen-merchant
+37% is still poor, and that is the honest conclusion: **unseen-merchant
 categorisation is genuinely hard**, which is exactly why commercial providers
 maintain large curated merchant dictionaries and lean on the model only for the
 tail. Across the full ledger agreement is 87%, but that figure is **in-sample** -

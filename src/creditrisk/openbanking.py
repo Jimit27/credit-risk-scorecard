@@ -84,15 +84,22 @@ MERCHANT_CATALOGUE: dict[str, list[str]] = {
     "transfers": ["TFR TO SAVINGS", "FASTER PYMT OUT {n}", "TFR FROM SAVINGS"],
 }
 
+# These are tuples, not sets, and that matters. Python randomises string
+# hashing per process, so iterating a set of category names yields a different
+# order in every run. RECURRING_CATEGORIES is iterated while drawing each
+# applicant's fixed merchants, so a set made the whole simulation irreproducible
+# - identical transaction counts, different contents, and reported accuracies
+# that drifted by a point between runs of the same committed code.
+#
 # Spend categories a lender treats as non-negotiable when testing affordability.
-ESSENTIAL_CATEGORIES = {"housing", "utilities", "groceries", "transport"}
-DISCRETIONARY_CATEGORIES = {"eating_out", "shopping", "subscriptions"}
+ESSENTIAL_CATEGORIES = ("groceries", "housing", "transport", "utilities")
+DISCRETIONARY_CATEGORIES = ("eating_out", "shopping", "subscriptions")
 
 # Categories where a person deals with the *same* counterparty every month: one
 # landlord, one energy supplier, one employer. Drawing a fresh merchant each
 # month would destroy the recurrence structure that makes these transactions
 # recognisable, which is precisely the signal the behavioural features use.
-RECURRING_CATEGORIES = {"income", "housing", "utilities", "subscriptions", "debt_repayment"}
+RECURRING_CATEGORIES = ("debt_repayment", "housing", "income", "subscriptions", "utilities")
 
 
 @dataclass(frozen=True)

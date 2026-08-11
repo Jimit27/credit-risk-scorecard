@@ -224,15 +224,15 @@ random transactions:
 | Model | Accuracy on unseen merchants |
 |---|---|
 | Always guess the most common category | 21.3% |
-| Character n-grams on the description | **3.5%** |
-| Description **plus transaction behaviour** | **39.6%** |
+| Character n-grams on the description | **13.2%** |
+| Description **plus transaction behaviour** | **36.7%** |
 
-Text alone lands far below even a majority-class guess: nothing in `OCTOPUS ENERGY`
+Text alone lands below even a majority-class guess: nothing in `OCTOPUS ENERGY`
 resembles `EDF ENERGY`, and the n-gram model confidently maps unfamiliar strings
 onto whichever category shares incidental characters. Adding *how the transaction
-behaves* — amount, sign, recurrence, amount stability — takes it to 1.9× the
+behaves* — amount, sign, recurrence, amount stability — takes it to 1.7× the
 majority-class baseline, because an unseen merchant is still recognisable as
-"monthly, fixed, large". 40% is still hard, which is exactly why commercial
+"monthly, fixed, large". 37% is still hard, which is exactly why commercial
 providers maintain curated merchant dictionaries and use a model only for the tail.
 (The baseline quoted is majority-class, not a uniform 1-in-12 guess — the held-out
 transactions are heavily skewed toward groceries and shopping, and quoting 8.3%

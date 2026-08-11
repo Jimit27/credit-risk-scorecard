@@ -3,7 +3,7 @@
 #
 # If the install fails building the wheel with "AttributeError: install_layout",
 # the environment's setuptools is too new for PySpark's sdist. Pin it first:
-#     pip install "setuptools==75.8.0" && pip install pyspark==4.0.1
+#     pip install "setuptools==75.8.0" && pip install -r requirements-spark.txt
 
 -r requirements.txt
-pyspark>=3.5,<5.0
+pyspark==4.0.1

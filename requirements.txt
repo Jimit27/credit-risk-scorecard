@@ -1,15 +1,26 @@
 # Core pipeline, training, app and tests.
+#
 # PySpark is deliberately NOT here - only the bronze/silver/gold stages need it.
 # See requirements-spark.txt. Keeping Spark out of the default install is what
 # lets CI and Streamlit Community Cloud run this without a JVM.
+#
+# Versions are pinned exactly, and that is a deliberate choice rather than
+# caution for its own sake. These are the versions every figure in the README
+# was produced with. An earlier unpinned build resolved to scikit-learn 1.9 and
+# moved the reported unseen-merchant accuracy from 3.5% to 11.5% - a documented
+# result silently changing underneath the document. A model repository whose
+# numbers depend on the day you installed it cannot be reviewed.
+#
+# To move the floor: bump a pin, run `make pipeline`, and check the figures in
+# README.md and docs/ still match reports/metrics.json.
 
-pandas>=2.2
-numpy>=1.26
-pyarrow>=15.0
-scikit-learn>=1.4
-xgboost>=2.0
-shap>=0.44
-matplotlib>=3.8
-joblib>=1.3
-PyYAML>=6.0
-streamlit>=1.31
+pandas==3.0.2
+numpy==2.4.4
+pyarrow==24.0.0
+scikit-learn==1.8.0
+xgboost==3.2.0
+shap==0.51.0
+matplotlib==3.10.9
+joblib==1.5.3
+PyYAML==6.0.3
+streamlit==1.61.1

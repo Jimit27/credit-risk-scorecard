@@ -35,12 +35,15 @@ def test_ledger_generation_is_deterministic():
 def test_ledger_has_income_and_spending_for_every_applicant(small_ledger):
     by_applicant = small_ledger.groupby("applicant_id")["true_category"].apply(set)
     assert all("income" in categories for categories in by_applicant)
-    assert all(categories & ESSENTIAL_CATEGORIES for categories in by_applicant)
+    # The category constants are tuples, not sets, so that iteration order is
+    # stable across processes - see tests/test_determinism.py. Convert here
+    # rather than trading reproducibility for a tidier operator.
+    assert all(categories & set(ESSENTIAL_CATEGORIES) for categories in by_applicant)
 
 
 def test_income_is_credit_and_spending_is_debit(small_ledger):
     assert (small_ledger.loc[small_ledger["true_category"] == "income", "amount"] > 0).all()
-    spending = small_ledger[small_ledger["true_category"].isin(ESSENTIAL_CATEGORIES | DISCRETIONARY_CATEGORIES)]
+    spending = small_ledger[small_ledger["true_category"].isin([*ESSENTIAL_CATEGORIES, *DISCRETIONARY_CATEGORIES])]
     assert (spending["amount"] < 0).all()
 
 
